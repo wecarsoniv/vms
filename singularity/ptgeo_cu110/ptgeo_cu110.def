@@ -1,0 +1,87 @@
+# Bootstrap: docker
+# From: nvidia/cuda:10.1-cudnn7-runtime-ubuntu18.04
+Bootstrap: docker
+From: nvidia/cuda:11.0-cudnn8-runtime-ubuntu18.04
+
+# Post section
+%post
+
+# Download and update latest packages
+apt-get update -y
+
+# python3-tk is required by matplotlib.
+DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+python3 \
+python3-tk \
+python3-pip
+
+# Reduce the size of the image by deleting the package lists downloaded which are no longer needed.
+# rm -rf /var/lib/apt/lists/*
+
+# Upgrade pip
+# pip3 install --upgrade pip
+
+# Install pip version==19.3 to avoid issue building PyTorch Geometric wheels using pip version==20
+pip3 install --upgrade pip==19.3
+
+# Jupyter Notebook and JupterLab need to have setuptools module installed
+pip install setuptools
+pip install --upgrade setuptools
+
+# Install wheel
+pip install wheel
+
+# Install Python modules
+pip install \
+numpy \
+scipy \
+pandas \
+xlrd \
+h5py \
+progress \
+tqdm \
+opencv-python \
+Pillow \
+pyvista \
+matplotlib \
+seaborn \
+scikit-learn \
+jupyterlab \
+ipywidgets
+
+# Update nodjs and npm
+# pip3 install nodejs npm
+# apt install -y nodejs npm
+# pip3 install nbresuse
+
+# Enable Jupyter extension
+# jupyter labextension install @jupyter-widgets/jupyterlab-manager
+jupyter nbextension enable --py widgetsnbextension
+
+# Install NetworkX
+pip install networkx
+
+# Instal MNE for MEG / EEG data analysis and visualization
+pip install mne --upgrade
+
+# Install FOOOF package
+pip install fooof
+
+# Install Google Neural Tangents and dependencies compatible with CUDA 11.0
+pip install jax jaxlib --upgrade
+pip install --upgrade jax jaxlib==0.1.57+cuda110 -f https://storage.googleapis.com/jax-releases/jax_releases.html
+pip install neural-tangents
+
+# Install PyTorch v1.7.1 with CUDA 11.0
+pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio===0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+
+# Install PyTorch Geometric and dependencies compatible with CUDA 11.0
+pip install torch-scatter==latest+cu110 -f https://pytorch-geometric.com/whl/torch-1.7.0.html
+pip install torch-sparse==latest+cu110 -f https://pytorch-geometric.com/whl/torch-1.7.0.html
+pip install torch-cluster==latest+cu110 -f https://pytorch-geometric.com/whl/torch-1.7.0.html
+pip install torch-spline-conv==latest+cu110 -f https://pytorch-geometric.com/whl/torch-1.7.0.html
+pip install torch-geometric
+
+# Install Deep Graph Library compatible with CUDA 11.0
+pip install dgl-cu110
+
