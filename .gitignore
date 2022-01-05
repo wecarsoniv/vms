@@ -1,5 +1,0 @@
-# Virtual machine definition and recipe files repository - .gitignore file
-
-# Ignore all singularity containers/singularity image files
-*.sif
-
