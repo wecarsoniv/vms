@@ -76,6 +76,9 @@ apt-get -y install "python3-rpy2"
 # Install AugmentedPCA
 pip3 install augmented-pca
 
+# Install torchbd - PyTorch implementations of beta-divergence loss
+pip3 install pytorch-beta-divergence
+
 # Install UMAP
 pip3 install umap-learn
 
