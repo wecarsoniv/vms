@@ -1,0 +1,7 @@
+# .gitignore file
+.gitignore file
+
+# Jupyter Lab/Jupyter Notebook checkpoints
+.ipynb_checkpoints/*
+
+
